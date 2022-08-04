@@ -90,21 +90,28 @@ ul {
   color: tomato;
 }
 
+.arrow-prev,
+.arrow-next {
+  cursor: pointer;
+}
+
 .carousel__pagination {
   display: flex;
-  gap: 16px;
   justify-content: center;
   margin-top: 16px;
 }
 
-.carousel__pagination button {
-  width: 16px;
-  height: 16px;
-  background-color: #bad;
-  border-radius: 50%;
-  border: none;
+.carousel__pagination div {
+  width: calc(100% / 5);
+  opacity: 0.5;
 }
 
-.carousel__pagination .active {
-  background-color: rebeccapurple;
+.carousel__pagination div.active {
+  opacity: 1;
+}
+
+.carousel__pagination div img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
