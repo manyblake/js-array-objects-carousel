@@ -59,7 +59,7 @@ slides.forEach((element, i) => {
   slideContent.appendChild(slideDescription);
 });
 
-nextArrow.addEventListener(`click`, function () {
+function nextSlide() {
   const slider = document.querySelectorAll(`.slide`);
   const slideActive = slider[currentIndex];
   slideActive.classList.remove(`active`);
@@ -73,9 +73,9 @@ nextArrow.addEventListener(`click`, function () {
   const nextSlide = slider[currentIndex];
 
   nextSlide.classList.add(`active`);
-});
+}
 
-prevArrow.addEventListener(`click`, function () {
+function prevSlide() {
   const slider = document.querySelectorAll(`.slide`);
   const slideActive = slider[currentIndex];
   slideActive.classList.remove(`active`);
@@ -89,4 +89,8 @@ prevArrow.addEventListener(`click`, function () {
   const nextSlide = slider[currentIndex];
 
   nextSlide.classList.add(`active`);
-});
+}
+
+prevArrow.addEventListener(`click`, prevSlide);
+nextArrow.addEventListener(`click`, nextSlide);
+let interval = setInterval(nextSlide, 3000);
