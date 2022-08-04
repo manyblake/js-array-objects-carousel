@@ -1,7 +1,7 @@
 const nextArrow = document.querySelector(`.arrow-next`);
 const prevArrow = document.querySelector(`.arrow-prev`);
 const slidesContainer = document.querySelector(`.slides-wrapper`);
-
+let interval = setInterval(nextSlide, 3000);
 let currentIndex = 0;
 
 const slides = [
@@ -92,5 +92,17 @@ function prevSlide() {
 }
 
 prevArrow.addEventListener(`click`, prevSlide);
-nextArrow.addEventListener(`click`, nextSlide);
-let interval = setInterval(nextSlide, 3000);
+
+nextArrow.addEventListener(`click`, function () {
+  nextSlide();
+  clearInterval(interval);
+  interval = setInterval(nextSlide, 3000);
+});
+
+slidesContainer.addEventListener(`mouseover`, function () {
+  clearInterval(interval);
+});
+
+slidesContainer.addEventListener(`mouseleave`, function () {
+  interval = setInterval(nextSlide, 3000);
+});
