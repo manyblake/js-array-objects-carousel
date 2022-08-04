@@ -3,6 +3,8 @@ const prevArrow = document.querySelector(`.arrow-prev`);
 const slidesContainer = document.querySelector(`.slides-wrapper`);
 let interval = setInterval(nextSlide, 3000);
 let currentIndex = 0;
+const pagination = document.querySelector(`.carousel__pagination`);
+const buttonsElements = [];
 
 const slides = [
   {
@@ -35,9 +37,19 @@ const slides = [
 ];
 
 slides.forEach((element, i) => {
+  const button = document.createElement("button");
+  pagination.appendChild(button);
+  buttonsElements.push(button);
+  button.addEventListener("click", function () {
+    changeSlide(i);
+  });
+
   const slide = document.createElement(`li`);
   slide.className = `slide`;
-  if (i === 0) slide.classList.add(`active`);
+  if (i === 0) {
+    button.classList.add(`active`);
+    slide.classList.add(`active`);
+  }
   slidesContainer.appendChild(slide);
 
   const slideImg = document.createElement(`img`);
@@ -62,7 +74,10 @@ slides.forEach((element, i) => {
 function nextSlide() {
   const slider = document.querySelectorAll(`.slide`);
   const slideActive = slider[currentIndex];
+  const buttonActive = buttonsElements[currentIndex];
+
   slideActive.classList.remove(`active`);
+  buttonActive.classList.remove(`active`);
 
   if (currentIndex < slider.length - 1) {
     currentIndex++;
@@ -71,14 +86,19 @@ function nextSlide() {
   }
 
   const nextSlide = slider[currentIndex];
+  const nextButton = buttonsElements[currentIndex];
 
   nextSlide.classList.add(`active`);
+  nextButton.classList.add(`active`);
 }
 
 function prevSlide() {
   const slider = document.querySelectorAll(`.slide`);
   const slideActive = slider[currentIndex];
+  const buttonActive = buttonsElements[currentIndex];
+
   slideActive.classList.remove(`active`);
+  buttonActive.classList.remove(`active`);
 
   if (currentIndex > 0) {
     currentIndex--;
@@ -87,8 +107,29 @@ function prevSlide() {
   }
 
   const nextSlide = slider[currentIndex];
+  const nextButton = buttonsElements[currentIndex];
 
   nextSlide.classList.add(`active`);
+  nextButton.classList.add(`active`);
+}
+
+function changeSlide(index) {
+  const slider = document.querySelectorAll(`.slide`);
+  const slideActive = slider[currentIndex];
+  const buttonActive = buttonsElements[currentIndex];
+
+  slideActive.classList.remove(`active`);
+  buttonActive.classList.remove(`active`);
+
+  const nextSlide = slider[index];
+  const nextButton = buttonsElements[index];
+
+  nextSlide.classList.add(`active`);
+  nextButton.classList.add(`active`);
+
+  currentIndex = index;
+  clearInterval(interval);
+  interval = setInterval(nextSlide, 3000);
 }
 
 prevArrow.addEventListener(`click`, prevSlide);
